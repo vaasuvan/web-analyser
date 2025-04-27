@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Page Analyzer</title>
+</head>
+<body>
+<h1>Web Page Analyzer</h1>
+<form action="/analyze" method="post">
+  <input type="text" name="url" placeholder="Enter URL" required>
+  <button type="submit">Analyze</button>
+</form>
+
+{{if .ErrorMessage}}
+<p style="color:red;">Error: {{.ErrorMessage}}</p>
+{{end}}
+
+{{if .Title}}
+<h2>Analysis Result</h2>
+<p><strong>URL:</strong> {{.URL}}</p>
+<p><strong>HTML Version:</strong> {{.HTMLVersion}}</p>
+<p><strong>Title:</strong> {{.Title}}</p>
+<p><strong>Headings:</strong></p>
+<ul>
+  {{range $key, $value := .HeadingsCount}}
+  <li>{{$key}}: {{$value}}</li>
+  {{end}}
+</ul>
+<p><strong>Internal Links:</strong> {{.InternalLinks}}</p>
+<p><strong>External Links:</strong> {{.ExternalLinks}}</p>
+<p><strong>Broken Links:</strong> {{.BrokenLinks}}</p>
+<p><strong>Login Form Present:</strong> {{.HasLoginForm}}</p>
+{{end}}
+</body>
+</html>
